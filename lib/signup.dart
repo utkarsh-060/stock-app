@@ -1,46 +1,30 @@
-// ignore_for_file: prefer_const_constructors
-
-import 'package:appdev_project/Forgot_password.dart';
-import 'package:appdev_project/signup.dart';
+import 'package:appdev_project/Login_page.dart';
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:sign_button/sign_button.dart';
 
-class LoginPage extends StatefulWidget {
-  const LoginPage({Key? key}) : super(key: key);
+class Signup extends StatefulWidget {
+  const Signup({Key? key}) : super(key: key);
 
   @override
-  State<LoginPage> createState() => _LoginPageState();
+  State<Signup> createState() => _SignupState();
 }
 
-class _LoginPageState extends State<LoginPage> {
-  final _formKey = GlobalKey<FormState>();
-  var _isLogin = true;
-  var _userEmail = '';
-  var _userPassword = '';
-
-  void _trySubmit() {
-    final isValid = _formKey.currentState?.validate();
-    FocusScope.of(context).unfocus();
-  }
-
+class _SignupState extends State<Signup> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.black,
       body: SafeArea(
-        //login
+        //Signup
         child: Center(
           child: Column(
-            key: _formKey,
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Image.asset(
-                'assets/images/panja.png',
+                'assets/images/SignupIcon.png',
                 height: 200,
               ),
               Text(
-                'Login',
+                'SignUp',
                 textAlign: TextAlign.right,
                 style: TextStyle(
                     fontWeight: FontWeight.bold,
@@ -58,11 +42,11 @@ class _LoginPageState extends State<LoginPage> {
                     borderRadius: BorderRadius.circular(12),
                   ),
                   child: TextFormField(
-                    key: ValueKey('email'),
                     validator: (value) {
                       if (value!.isEmpty || !value.contains('@')) {
-                        return 'please enter a valid email address';
+                        return 'Please enter a valid Email ID';
                       }
+                      return null;
                     },
                     decoration: InputDecoration(
                         prefixIcon:
@@ -71,9 +55,32 @@ class _LoginPageState extends State<LoginPage> {
                         hintText: 'Email ID',
                         hintStyle: TextStyle(
                             color: Color.fromARGB(255, 193, 191, 191))),
-                    onSaved: (value) {
-                      _userEmail = value!;
+                  ),
+                ),
+              ),
+              SizedBox(height: 10),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 25.0),
+                child: Container(
+                  decoration: BoxDecoration(
+                    color: Color.fromARGB(255, 75, 74, 74),
+                    border: Border.all(color: Colors.black),
+                    borderRadius: BorderRadius.circular(12),
+                  ),
+                  child: TextFormField(
+                    validator: (value) {
+                      if (value!.isEmpty || value.length < 4) {
+                        return 'Username must have more than 4 letters';
+                      }
+                      return null;
                     },
+                    decoration: InputDecoration(
+                        prefixIcon:
+                            Icon(Icons.account_box, color: Colors.white),
+                        border: InputBorder.none,
+                        hintText: 'Username',
+                        hintStyle: TextStyle(
+                            color: Color.fromARGB(255, 193, 191, 191))),
                   ),
                 ),
               ),
@@ -88,7 +95,6 @@ class _LoginPageState extends State<LoginPage> {
                     borderRadius: BorderRadius.circular(12),
                   ),
                   child: TextFormField(
-                    key: ValueKey('password'),
                     validator: (value) {
                       if (value!.isEmpty || value.length < 7) {
                         return 'Password must be atleast 7 cahrs long';
@@ -104,25 +110,10 @@ class _LoginPageState extends State<LoginPage> {
                         hintText: 'Password',
                         hintStyle: TextStyle(
                             color: Color.fromARGB(255, 193, 191, 191))),
-                    onSaved: (value) {
-                      _userPassword = value!;
-                    },
                   ),
                 ),
               ),
-              SizedBox(height: 10),
-              Padding(
-                padding: const EdgeInsets.only(left: 25.0),
-                child: GestureDetector(
-                  onTap: () {
-                    Navigator.of(context).push(MaterialPageRoute(
-                        builder: (context) => ForgotPassword()));
-                  },
-                  child: Text('Forgot Password?',
-                      textAlign: TextAlign.left,
-                      style: TextStyle(color: Colors.white)),
-                ),
-              ),
+
               //signin button
               SizedBox(height: 30),
               Padding(
@@ -145,21 +136,20 @@ class _LoginPageState extends State<LoginPage> {
                         borderRadius: BorderRadius.circular(30)),
                     child: Center(
                       child: Text(
-                        'Login',
+                        'Register',
                         style: TextStyle(color: Colors.white, fontSize: 15),
                       ),
                     ),
                   ),
                 ),
               ),
-
               SizedBox(height: 10),
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 105.0),
                 child: GestureDetector(
                   onTap: () {
                     Navigator.of(context).push(
-                        MaterialPageRoute(builder: (context) => Signup()));
+                        MaterialPageRoute(builder: (context) => LoginPage()));
                   },
                   child: Container(
                     padding: EdgeInsets.all(20),
@@ -169,16 +159,13 @@ class _LoginPageState extends State<LoginPage> {
                         border: Border.all(color: Colors.white)),
                     child: Center(
                       child: Text(
-                        'Signup',
+                        'Login',
                         style: TextStyle(color: Colors.white, fontSize: 15),
                       ),
                     ),
                   ),
                 ),
               ),
-              SizedBox(height: 20),
-
-              SizedBox(height: 20),
             ],
           ),
         ),
